@@ -23,7 +23,7 @@ const clientId = "BJKdDFkNtkWX87XqkuWrDu4rbkSvWyQZ5lswS0ucINxxcN0inRVW8zzKAywPPz
 const chainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0xaa36a7",
-  rpcTarget: "https://rpc.ankr.com/eth_sepolia",
+  rpcTarget: "https://eth-sepolia.g.alchemy.com/v2/70ITHIBumjZFhGXfiCfc-sxsQCkiTUSL",
   displayName: "Ethereum Sepolia Testnet",
   blockExplorerUrl: "https://sepolia.etherscan.io",
   ticker: "ETH",
@@ -72,6 +72,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
             localStorage.setItem('userEmail', user.email);
             try {
               await createUser(user.email, user.name || 'Anonymous User');
+              console.log("usdefsersers")
             } catch (error) {
               console.error("Error creating user:", error);
               // Handle the error appropriately, maybe show a message to the user
@@ -133,11 +134,13 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
   }, [userInfo]);
 
   const login = async () => {
+    console.log("web3auth",web3auth)
     if (!web3auth) {
       console.log("web3auth not initialized yet");
       return;
     }
     try {
+      console.log("ussdsdfsdf")
       const web3authProvider = await web3auth.connect();
       setProvider(web3authProvider);
       setLoggedIn(true);
@@ -153,6 +156,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
         }
       }
     } catch (error) {
+
       console.error("Error during login:", error);
     }
   };
@@ -210,7 +214,7 @@ export default function Header({ onMenuClick, totalEarnings }: HeaderProps) {
           <Link href="/" className="flex items-center">
             <Leaf className="h-6 w-6 md:h-8 md:w-8 text-green-500 mr-1 md:mr-2" />
             <div className="flex flex-col">
-              <span className="font-bold text-base md:text-lg text-gray-800">Zero2Hero</span>
+              <span className="font-bold text-base md:text-lg text-gray-800">ecosync</span>
               <span className="text-[8px] md:text-[10px] text-gray-500 -mt-1">ETHOnline24</span>
             </div>
           </Link>

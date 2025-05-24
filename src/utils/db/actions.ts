@@ -1,26 +1,31 @@
-import { db } from './dbConfig';
-import { Users, Reports, Rewards, CollectedWastes, Notifications, Transactions } from './schema';
-import { eq, sql, and, desc, ne } from 'drizzle-orm';
+  import { db } from './dbConfig';
+  import { Users, Reports, Rewards, CollectedWastes, Notifications, Transactions } from './schema';
+  import { eq, sql, and, desc, ne } from 'drizzle-orm';
 
-export async function createUser(email: string, name: string) {
-  try {
-    const [user] = await db.insert(Users).values({ email, name }).returning().execute();
-    return user;
-  } catch (error) {
-    console.error("Error creating user:", error);
-    return null;
+  export async function createUser(email: string, name: string) {
+    console.log("createUser function called", email, name);
+    try {
+      const [user] = await db.insert(Users).values({ email, name }).returning().execute();
+      console.log("user isss create",db)
+      console.log("user user create",user)
+      return user;
+    } catch (error) {
+      console.error("Error creating user:", error);
+      return null;
+    }
   }
-}
 
-export async function getUserByEmail(email: string) {
-  try {
-    const [user] = await db.select().from(Users).where(eq(Users.email, email)).execute();
-    return user;
-  } catch (error) {
-    console.error("Error fetching user by email:", error);
-    return null;
+  export async function getUserByEmail(email: string) {
+    try {
+      const [user] = await db.select().from(Users).where(eq(Users.email, email)).execute();
+      console.log("user isss",db)
+      console.log("user user",user)
+      return user;
+    } catch (error) {
+      console.error("Error fetching user by email:", error);
+      return null;
+    }
   }
-}
 
 export async function createReport(
   userId: number,
@@ -32,6 +37,13 @@ export async function createReport(
   verificationResult?: any
 ) {
   try {
+    const userExists = await db.select().from(Users).where(eq(Users.id, userId)).execute();
+
+    if (userExists.length === 0) {
+      throw new Error(`User with id ${userId} does not exist!`);
+    }
+
+    
     const [report] = await db
       .insert(Reports)
       .values({
