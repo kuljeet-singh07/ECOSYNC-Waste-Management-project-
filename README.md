@@ -1,1 +1,1 @@
-
+ 'ECOSYNC'an AI-powered waste management platform designed to incentivize and streamline waste reporting and collection. Our goal is to create a community-driven approach to waste management, rewarding users for their eco-friendly actions.
